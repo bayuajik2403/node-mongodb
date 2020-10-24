@@ -1,19 +1,34 @@
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost:27017/animals');
-mongoose.connection
-    .once('open', ()=>console.log('CONNECTED'))
-    .on('error', (err)=>{
-        console.log(`couldnt connect `, err)
-    });
-// var MongoClient = require('mongodb').MongoClient
+// mongoose.connect('mongodb://localhost:27017/animals');
+// mongoose.connection
+//     .once('open', ()=>console.log('CONNECTED'))
+//     .on('error', (err)=>{
+//         console.log(`couldnt connect `, err)
+//     });
 
-// MongoClient.connect('mongodb://localhost:27017/animals', function (err, db) {
-//   if (err) throw err
 
-// //   db.collection('mammals').find().toArray(function (err, result) {
-// //     if (err) throw err
+var {MongoClient, ObjectId} = require('mongodb');
 
-// //     console.log(result)
-// //   })
-// })
+MongoClient.connect('mongodb://localhost:27017', function (err, client) {
+    if (err) throw err
+    console.log(ObjectId());
+    
+    const db =client.db('animals');
+    // db.collection('mammals').insertOne({
+    //     name : 'fish',
+    //     legs : 2
+
+    // }, (err,result)=>{
+    //     if(err){ return console.log(err)}
+    //     console.log('INSERTED');
+    // });
+    
+    console.log('CONNECTED');
+
+  db.collection('mammals').find().toArray(function (err, result) {
+    if (err) throw err
+
+    console.log(result)
+  })
+})
