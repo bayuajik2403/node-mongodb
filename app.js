@@ -8,12 +8,13 @@
 //     });
 
 
-var {MongoClient, ObjectId} = require('mongodb');
+var {MongoClient, ObjectId, Db} = require('mongodb');
 
 MongoClient.connect('mongodb://localhost:27017', function (err, client) {
     if (err) throw err
-    console.log(ObjectId());
+    //console.log(ObjectId());
     
+    //creating data
     const db =client.db('animals');
     // db.collection('mammals').insertOne({
     //     name : 'fish',
@@ -24,11 +25,35 @@ MongoClient.connect('mongodb://localhost:27017', function (err, client) {
     //     console.log('INSERTED');
     // });
     
-    console.log('CONNECTED');
+    // console.log('CONNECTED');
 
-  db.collection('mammals').find().toArray(function (err, result) {
-    if (err) throw err
+    // fetching data
+    // db.collection('mammals').find().toArray(function (err, result) {
+    //     if (err) throw err
 
-    console.log(result)
-  })
+    //     console.log(result)
+    // })
+
+
+    //updating data
+    // db.collection('mammals').findOneAndUpdate({
+    //     _id: new ObjectId('5f93c49013826779a94dda7e')
+    // }, {
+    //     $set: {name: 'updated-2'}
+    // }).then(result=>{
+    //     console.log(result);
+    // }).catch(err=>{
+    //     console.log(err)
+    // });
+
+    // deleting
+    // db.collection('mammals').deleteOne({name: ''});
+
+    db.collection('mammals').findOneAndDelete({
+        _id: new ObjectId('5f93c49013826779a94dda7e')
+
+    }).then(result=>{
+        console.log(result)
+    });
+
 })
