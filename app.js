@@ -1,11 +1,19 @@
-var MongoClient = require('mongodb').MongoClient
+const mongoose = require('mongoose')
 
-MongoClient.connect('mongodb://localhost:27017/animals', function (err, db) {
-  if (err) throw err
+mongoose.connect('mongodb://localhost:27017/animals');
+mongoose.connection
+    .once('open', ()=>console.log('CONNECTED'))
+    .on('error', (err)=>{
+        console.log(`couldnt connect `, err)
+    });
+// var MongoClient = require('mongodb').MongoClient
 
-//   db.collection('mammals').find().toArray(function (err, result) {
-//     if (err) throw err
+// MongoClient.connect('mongodb://localhost:27017/animals', function (err, db) {
+//   if (err) throw err
 
-//     console.log(result)
-//   })
-})
+// //   db.collection('mammals').find().toArray(function (err, result) {
+// //     if (err) throw err
+
+// //     console.log(result)
+// //   })
+// })
